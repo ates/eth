@@ -13,6 +13,10 @@
  {<<"mimerl">>,{pkg,<<"mimerl">>,<<"1.5.0">>},1},
  {<<"parse_trans">>,{pkg,<<"parse_trans">>,<<"3.4.2">>},1},
  {<<"quic">>,{pkg,<<"quic">>,<<"1.7.1">>},1},
+ {<<"secp256k1">>,
+  {git,"https://github.com/ates/secp256k1.git",
+       {ref,"a05e36a7462123160b6fc11aa669ef985af9f84c"}},
+  0},
  {<<"ssl_verify_fun">>,{pkg,<<"ssl_verify_fun">>,<<"1.1.7">>},1},
  {<<"webtransport">>,{pkg,<<"webtransport">>,<<"0.4.3">>},1}]}.
 [
