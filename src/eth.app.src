@@ -1,0 +1,15 @@
+{application, eth, [
+    {description, "Ethereum JSON-RPC client, EIP-1559 transaction signing and ABI codec"},
+    {vsn, "0.1.0"},
+    {registered, []},
+    {applications, [
+        kernel,
+        stdlib,
+        crypto,
+        hackney,
+        keccak,
+        secp256k1
+    ]},
+    {env, []},
+    {licenses, ["Apache 2.0"]}
+]}.
