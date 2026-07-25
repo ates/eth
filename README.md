@@ -179,8 +179,6 @@ rebar3 eunit
 rebar3 dialyzer
 ```
 
-Consumers that also depend on `gun` need `BUILD_WITHOUT_QUIC=1`.
-
 Coverage is on reference vectors: RLP from the spec, EIP-55 addresses, known
 private key / address pairs, the ERC-20 selectors, and a hand-derived
 EIP-1559 payload. The signing test checks that the recovery id embedded as
