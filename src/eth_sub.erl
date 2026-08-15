@@ -243,5 +243,9 @@ close(undefined) ->
     ok;
 close(Ws) ->
     %% The socket may already be gone; closing it is best effort.
-    catch hackney:ws_close(Ws),
+    try
+        hackney:ws_close(Ws)
+    catch
+        _:_ -> ok
+    end,
     ok.
