@@ -83,6 +83,20 @@ decode_transfer_event_test() ->
         })
     ).
 
+%% A USDC transfer seen on Base mainnet: the recipient's raw bytes start with
+%% 0x30 0x78, the ASCII "0x", and used to be decoded as a hex string.
+decode_transfer_event_0x_address_test() ->
+    Log = #{
+        <<"topics">> => [
+            eth_abi:transfer_topic(),
+            <<"0x000000000000000000000000d65cdb550adaeca8c71b15ff52f515c6e5af73f2">>,
+            <<"0x0000000000000000000000003078ae08e8448a769eec884ae3cfbf6c70b293b6">>
+        ],
+        <<"data">> => eth_hex:encode_data(<<0:256>>)
+    },
+    {ok, #{to := To, amount := 0}} = eth_abi:decode_transfer_event(Log),
+    ?assertEqual(<<"0x3078ae08e8448a769eec884ae3cfbf6c70b293b6">>, string:lowercase(To)).
+
 %% Some tokens emit Transfer with fewer indexed parameters, or the filter can
 %% pick up an unrelated event. Neither may crash the caller.
 decode_transfer_event_rejects_test() ->

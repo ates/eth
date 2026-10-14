@@ -37,11 +37,14 @@ encode_data(Bin) when is_binary(Bin) ->
 decode_data(<<"0x", Hex/binary>>) -> binary:decode_hex(pad(Hex));
 decode_data(Hex) when is_binary(Hex) -> binary:decode_hex(pad(Hex)).
 
-%% @doc Decode to exactly Size bytes. An unprefixed binary that is already
-%% Size bytes long is passed through, which is what makes it safe to hand
-%% either an address string or raw address bytes to the transaction builder.
+%% @doc Decode to exactly Size bytes. A binary that is already Size bytes
+%% long is passed through, which is what makes it safe to hand either an
+%% address string or raw address bytes to the transaction builder.
+%%
+%% The size check comes first: raw bytes may well start with "0x" (0x30 0x78,
+%% e.g. the address 0x3078ae08...), and hex of Size bytes is never Size bytes
+%% long itself, so the size alone tells the two apart.
 -spec decode_data(binary(), pos_integer()) -> binary().
-decode_data(<<"0x", _/binary>> = Hex, Size) -> sized(decode_data(Hex), Size);
 decode_data(Bin, Size) when byte_size(Bin) =:= Size -> Bin;
 decode_data(Hex, Size) -> sized(decode_data(Hex), Size).
 
